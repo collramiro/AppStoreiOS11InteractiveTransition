@@ -79,6 +79,7 @@ final class CardToDetailTransitionManager: UIPercentDrivenInteractiveTransition,
     var heightAnc: NSLayoutConstraint!
     var centerXAnc: NSLayoutConstraint!
     var centerYAnc: NSLayoutConstraint!
+    var heightConstraint : NSLayoutConstraint!
 
     var cardBottomAnc: NSLayoutConstraint!
 
@@ -204,7 +205,7 @@ extension CardToDetailTransitionManager: UIViewControllerAnimatedTransitioning {
 
             let snapshotContent = toView.snapshotView(afterScreenUpdates: true)!
             snapshotContent.translatesAutoresizingMaskIntoConstraints = false
-
+            
             // IMPORTANT: Must snapshot before hiding it!
             toView.isHidden = true
 
@@ -215,7 +216,6 @@ extension CardToDetailTransitionManager: UIViewControllerAnimatedTransitioning {
 
             let aspectRatioWH = toView.bounds.width/toView.bounds.height
             snapshotContent.widthAnchor.constraint(equalTo: snapshotContent.heightAnchor, multiplier: aspectRatioWH).isActive = true
-
 
             animatingContainerView.insertSubview(whiteContentView, belowSubview: animatingCardView)
 
@@ -300,12 +300,21 @@ extension CardToDetailTransitionManager: UIViewControllerAnimatedTransitioning {
                 let h = fv.heightAnchor.constraint(equalToConstant: self.fromCardFrameWithoutTransform.height)
                 let mx = fv.centerXAnchor.constraint(equalTo: container.leftAnchor, constant: self.fromCardFrameWithoutTransform.midX)
                 let my = fv.centerYAnchor.constraint(equalTo: container.topAnchor, constant: self.fromCardFrameWithoutTransform.midY)
+//                let ih = detailVc.cardContentView.imageView.heightAnchor.constraint(equalToConstant: self.fromCardFrameWithoutTransform.height)
                 return [w, h, mx, my]
             }()
 
             destinationConstraints.forEach { (c) in
                 c.priority = UILayoutPriority(999)
                 c.isActive = false
+            }
+            
+            let currentCardContentViews = fv.getAllSubviews() as [CardContentView]
+            if let currentCardContentView = currentCardContentViews.first {
+                let filteredConstraints = currentCardContentView.constraints.filter { $0.identifier == "heightConstraint" }
+                if let constraint = filteredConstraints.first {
+                    heightConstraint = constraint
+                }
             }
 
             UIView.animateKeyframes(withDuration: transitionDuration(using: ctx), delay: 0, options: [], animations: {
@@ -323,6 +332,7 @@ extension CardToDetailTransitionManager: UIViewControllerAnimatedTransitioning {
                                     fv.transform = CGAffineTransform.identity
                                     self.blurEffectView?.alpha = 0.0
                                     detailVc.scrollView.contentOffset = .zero
+                                    self.heightConstraint?.constant = self.fromCardFrameWithoutTransform.height
                                     destinationConstraints.forEach({ (c) in
                                         c.isActive = true
                                     })
