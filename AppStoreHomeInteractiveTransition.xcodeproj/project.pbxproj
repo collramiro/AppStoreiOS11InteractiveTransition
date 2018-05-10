@@ -7,13 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		288094FE20A23BAF008682B5 /* girl1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 288094FD20A23BAF008682B5 /* girl1.jpg */; };
+		2880950220A23BC4008682B5 /* girl2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 288094FF20A23BC3008682B5 /* girl2.jpg */; };
+		2880950420A23BC4008682B5 /* girl4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2880950120A23BC3008682B5 /* girl4.jpg */; };
+		2880950620A23F03008682B5 /* girl5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2880950520A23F03008682B5 /* girl5.jpg */; };
+		2880950820A23F07008682B5 /* girl6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2880950720A23F07008682B5 /* girl6.jpg */; };
+		2880950A20A34AD5008682B5 /* girl3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2880950920A34AD5008682B5 /* girl3.jpg */; };
+		2880950C20A36A14008682B5 /* SwipeableImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880950B20A36A14008682B5 /* SwipeableImageViewController.swift */; };
+		2880950E20A36A2B008682B5 /* ImageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880950D20A36A2B008682B5 /* ImageContentViewController.swift */; };
+		2880951120A38067008682B5 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880950F20A38067008682B5 /* ImageCollectionViewCell.swift */; };
+		2880951220A38067008682B5 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2880951020A38067008682B5 /* ImageCollectionViewCell.xib */; };
+		2880951520A393FA008682B5 /* CustomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880951420A393FA008682B5 /* CustomCollectionViewController.swift */; };
 		3006575F208A64F900BE8E14 /* img3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3006575E208A64F900BE8E14 /* img3.jpg */; };
 		3020D63A2073D66A009B201B /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3020D6392073D66A009B201B /* img1.png */; };
 		3020D6422073DD5E009B201B /* CardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3020D6412073DD5E009B201B /* CardContentView.swift */; };
 		3020D6442073DD68009B201B /* CardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3020D6432073DD68009B201B /* CardContentView.xib */; };
 		3020D6462073E373009B201B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3020D6452073E373009B201B /* Extensions.swift */; };
 		30343597206F612F00F2B997 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30343596206F612F00F2B997 /* CardCollectionViewCell.swift */; };
-		30343599206F614E00F2B997 /* CardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30343598206F614E00F2B997 /* CardCollectionViewCell.xib */; };
 		3034359C206F620100F2B997 /* CardCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3034359B206F620100F2B997 /* CardCollectionViewCellViewModel.swift */; };
 		303E8D5320754B7000C88DAE /* AnimatableStatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303E8D5220754B7000C88DAE /* AnimatableStatusBarViewController.swift */; };
 		3078369B2073FCF6007E040A /* CardToDetailTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3078369A2073FCF6007E040A /* CardToDetailTransitionManager.swift */; };
@@ -26,6 +36,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		288094FD20A23BAF008682B5 /* girl1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = girl1.jpg; sourceTree = "<group>"; };
+		288094FF20A23BC3008682B5 /* girl2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = girl2.jpg; sourceTree = "<group>"; };
+		2880950120A23BC3008682B5 /* girl4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = girl4.jpg; sourceTree = "<group>"; };
+		2880950520A23F03008682B5 /* girl5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = girl5.jpg; sourceTree = "<group>"; };
+		2880950720A23F07008682B5 /* girl6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = girl6.jpg; sourceTree = "<group>"; };
+		2880950920A34AD5008682B5 /* girl3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = girl3.jpg; sourceTree = "<group>"; };
+		2880950B20A36A14008682B5 /* SwipeableImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableImageViewController.swift; sourceTree = "<group>"; };
+		2880950D20A36A2B008682B5 /* ImageContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentViewController.swift; sourceTree = "<group>"; };
+		2880950F20A38067008682B5 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		2880951020A38067008682B5 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		2880951420A393FA008682B5 /* CustomCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewController.swift; sourceTree = "<group>"; };
 		3006575E208A64F900BE8E14 /* img3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img3.jpg; sourceTree = "<group>"; };
 		3020D6392073D66A009B201B /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
 		3020D6412073DD5E009B201B /* CardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentView.swift; sourceTree = "<group>"; };
@@ -57,9 +78,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2880951320A393CB008682B5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2880951420A393FA008682B5 /* CustomCollectionViewController.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		3020D6382073D662009B201B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				288094FD20A23BAF008682B5 /* girl1.jpg */,
+				288094FF20A23BC3008682B5 /* girl2.jpg */,
+				2880950920A34AD5008682B5 /* girl3.jpg */,
+				2880950120A23BC3008682B5 /* girl4.jpg */,
+				2880950520A23F03008682B5 /* girl5.jpg */,
+				2880950720A23F07008682B5 /* girl6.jpg */,
 				3006575E208A64F900BE8E14 /* img3.jpg */,
 				3020D6392073D66A009B201B /* img1.png */,
 			);
@@ -73,6 +108,8 @@
 				30343598206F614E00F2B997 /* CardCollectionViewCell.xib */,
 				3020D6412073DD5E009B201B /* CardContentView.swift */,
 				3020D6432073DD68009B201B /* CardContentView.xib */,
+				2880950F20A38067008682B5 /* ImageCollectionViewCell.swift */,
+				2880951020A38067008682B5 /* ImageCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -104,6 +141,7 @@
 		309F99A3206E7CED00F20ED7 /* AppStoreHomeInteractiveTransition */ = {
 			isa = PBXGroup;
 			children = (
+				2880951320A393CB008682B5 /* Classes */,
 				3020D6452073E373009B201B /* Extensions.swift */,
 				3020D6382073D662009B201B /* Resources */,
 				3034359A206F61F800F2B997 /* Models */,
@@ -114,6 +152,8 @@
 				30F6EA1F2073F41F00213761 /* CardDetailViewController.swift */,
 				309F99A6206E7CED00F20ED7 /* HomeViewController.swift */,
 				309F99A8206E7CED00F20ED7 /* Main.storyboard */,
+				2880950B20A36A14008682B5 /* SwipeableImageViewController.swift */,
+				2880950D20A36A2B008682B5 /* ImageContentViewController.swift */,
 				309F99AB206E7CED00F20ED7 /* Assets.xcassets */,
 				309F99AD206E7CED00F20ED7 /* LaunchScreen.storyboard */,
 				309F99B0206E7CED00F20ED7 /* Info.plist */,
@@ -180,13 +220,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2880950820A23F07008682B5 /* girl6.jpg in Resources */,
 				3020D63A2073D66A009B201B /* img1.png in Resources */,
 				3006575F208A64F900BE8E14 /* img3.jpg in Resources */,
+				2880950220A23BC4008682B5 /* girl2.jpg in Resources */,
 				3020D6442073DD68009B201B /* CardContentView.xib in Resources */,
-				30343599206F614E00F2B997 /* CardCollectionViewCell.xib in Resources */,
 				309F99AF206E7CED00F20ED7 /* LaunchScreen.storyboard in Resources */,
+				2880950620A23F03008682B5 /* girl5.jpg in Resources */,
+				2880951220A38067008682B5 /* ImageCollectionViewCell.xib in Resources */,
+				2880950420A23BC4008682B5 /* girl4.jpg in Resources */,
+				288094FE20A23BAF008682B5 /* girl1.jpg in Resources */,
 				309F99AC206E7CED00F20ED7 /* Assets.xcassets in Resources */,
 				309F99AA206E7CED00F20ED7 /* Main.storyboard in Resources */,
+				2880950A20A34AD5008682B5 /* girl3.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,15 +243,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2880950E20A36A2B008682B5 /* ImageContentViewController.swift in Sources */,
 				3034359C206F620100F2B997 /* CardCollectionViewCellViewModel.swift in Sources */,
 				3020D6462073E373009B201B /* Extensions.swift in Sources */,
 				309F99A7206E7CED00F20ED7 /* HomeViewController.swift in Sources */,
 				3020D6422073DD5E009B201B /* CardContentView.swift in Sources */,
 				3078369B2073FCF6007E040A /* CardToDetailTransitionManager.swift in Sources */,
+				2880951120A38067008682B5 /* ImageCollectionViewCell.swift in Sources */,
 				30343597206F612F00F2B997 /* CardCollectionViewCell.swift in Sources */,
 				309F99A5206E7CED00F20ED7 /* AppDelegate.swift in Sources */,
 				303E8D5320754B7000C88DAE /* AnimatableStatusBarViewController.swift in Sources */,
 				30F6EA202073F41F00213761 /* CardDetailViewController.swift in Sources */,
+				2880950C20A36A14008682B5 /* SwipeableImageViewController.swift in Sources */,
+				2880951520A393FA008682B5 /* CustomCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

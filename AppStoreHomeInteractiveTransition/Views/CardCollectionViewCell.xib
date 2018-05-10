@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,12 +23,27 @@
                         <userDefinedRuntimeAttribute type="image" keyPath="backgroundImage" value="img1.png"/>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tbc-sE-Y9q">
+                    <rect key="frame" x="20" y="259" width="260" height="70"/>
+                    <color key="backgroundColor" red="0.05853712346" green="0.97647058819999999" blue="0.083322187790000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="0aQ-NC-agl"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="Swo-i6-wfj"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="testPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="5uL-2c-cyv"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Tbc-sE-Y9q" secondAttribute="bottom" constant="20" id="12x-rb-q2S"/>
+                <constraint firstItem="Tbc-sE-Y9q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Bjf-Lg-M6A"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BcV-92-55m" secondAttribute="trailing" id="Drs-W5-MFz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="BcV-92-55m" secondAttribute="bottom" id="MBB-MU-l8F"/>
                 <constraint firstItem="BcV-92-55m" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="MOh-yh-wWR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Tbc-sE-Y9q" secondAttribute="trailing" constant="20" id="dcZ-hC-W1y"/>
                 <constraint firstItem="BcV-92-55m" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="fDQ-Bz-bm0"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

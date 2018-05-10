@@ -16,7 +16,6 @@ class CardDetailViewController: AnimatableStatusBarViewController, UIScrollViewD
 
     @IBOutlet weak var cardContentView: CardContentView!
 
-    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
     var cardViewModel: CardCollectionViewCellViewModel! {
         didSet {

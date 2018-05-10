@@ -15,8 +15,10 @@ final class CardToDetailTransitionManager: UIPercentDrivenInteractiveTransition,
     final class ScreenEdgePanGesture: UIScreenEdgePanGestureRecognizer {}
 
     enum Constants {
-        static let transitionDuration: TimeInterval = 0.5
-        static let transitionDurationForDismissing: TimeInterval = 0.8
+        //0.5 original
+        static let transitionDuration: TimeInterval = 0.8
+        //0.8 original
+        static let transitionDurationForDismissing: TimeInterval = 1.2
         static let minimumScaleUntilDismissing: CGFloat = 0.8
         static let progressUntilDismissing: Double = 0.5
     }
@@ -300,7 +302,6 @@ extension CardToDetailTransitionManager: UIViewControllerAnimatedTransitioning {
                 let h = fv.heightAnchor.constraint(equalToConstant: self.fromCardFrameWithoutTransform.height)
                 let mx = fv.centerXAnchor.constraint(equalTo: container.leftAnchor, constant: self.fromCardFrameWithoutTransform.midX)
                 let my = fv.centerYAnchor.constraint(equalTo: container.topAnchor, constant: self.fromCardFrameWithoutTransform.midY)
-//                let ih = detailVc.cardContentView.imageView.heightAnchor.constraint(equalToConstant: self.fromCardFrameWithoutTransform.height)
                 return [w, h, mx, my]
             }()
 
@@ -358,6 +359,9 @@ extension CardToDetailTransitionManager: UIViewControllerAnimatedTransitioning {
                     self.centerXAnc.constant = 0
                     self.centerYAnc.constant = 0
 
+                    //todo::replace with correct constant or ratio
+                    self.heightConstraint?.constant = 375
+                    
                     destinationConstraints.forEach({ (c) in
                         c.isActive = false
                     })
@@ -446,6 +450,8 @@ extension CardToDetailTransitionManager: UIGestureRecognizerDelegate {
                 cardDetailDidEnterDismissAnimationState()
                 self.finish()
             } else {
+//                self.cardDetailViewController?.view.setNeedsLayout()
+//                self.cardDetailViewController?.view.layoutIfNeeded()
                 self.cancel()
             }
         }

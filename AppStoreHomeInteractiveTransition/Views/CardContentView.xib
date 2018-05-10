@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardContentView" customModule="AppStoreHomeInteractiveTransition" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="xol-8o-Bn5" id="RZH-d7-7UY"/>
                 <outlet property="detailLabel" destination="V41-Xp-Lt9" id="dqV-Lp-Zf0"/>
                 <outlet property="imageToBottomAnchor" destination="drH-b2-3VK" id="Yp0-cm-SAe"/>
                 <outlet property="imageToLeadingAnchor" destination="fJ2-z6-cRq" id="Uuo-dB-zY6"/>
@@ -30,9 +31,19 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdF-KP-YJK">
                     <rect key="frame" x="0.0" y="0.0" width="326" height="382"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Oxq-aW-q4t">
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Oxq-aW-q4t">
                             <rect key="frame" x="0.0" y="0.0" width="326" height="382"/>
                         </imageView>
+                        <collectionView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="xol-8o-Bn5" customClass="CustomCollectionViewController" customModule="AppStoreHomeInteractiveTransition" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="326" height="382"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="V2t-IV-5hr">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BEHIND THE SCENES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37H-gx-9FO">
                             <rect key="frame" x="16" y="16" width="181" height="21.5"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
@@ -62,10 +73,14 @@
                         <constraint firstItem="xW4-5L-VCV" firstAttribute="top" secondItem="37H-gx-9FO" secondAttribute="bottom" constant="12" id="K4G-HK-eQH"/>
                         <constraint firstItem="Oxq-aW-q4t" firstAttribute="top" secondItem="twb-ab-x92" secondAttribute="top" id="QHH-8K-zqd"/>
                         <constraint firstItem="twb-ab-x92" firstAttribute="bottom" secondItem="V41-Xp-Lt9" secondAttribute="bottom" constant="16" id="TGW-mY-RZ0"/>
+                        <constraint firstItem="xol-8o-Bn5" firstAttribute="bottom" secondItem="twb-ab-x92" secondAttribute="bottom" id="WAc-be-d6s"/>
+                        <constraint firstItem="xol-8o-Bn5" firstAttribute="top" secondItem="twb-ab-x92" secondAttribute="top" id="bdy-Qm-I4C"/>
                         <constraint firstItem="twb-ab-x92" firstAttribute="bottom" secondItem="Oxq-aW-q4t" secondAttribute="bottom" id="drH-b2-3VK"/>
                         <constraint firstItem="Oxq-aW-q4t" firstAttribute="leading" secondItem="twb-ab-x92" secondAttribute="leading" id="fJ2-z6-cRq"/>
                         <constraint firstItem="V41-Xp-Lt9" firstAttribute="leading" secondItem="twb-ab-x92" secondAttribute="leading" constant="16" id="lmd-xw-kRp"/>
                         <constraint firstItem="twb-ab-x92" firstAttribute="trailing" secondItem="Oxq-aW-q4t" secondAttribute="trailing" id="ofd-ca-1bD"/>
+                        <constraint firstItem="xol-8o-Bn5" firstAttribute="leading" secondItem="twb-ab-x92" secondAttribute="leading" id="qWY-AV-q7g"/>
+                        <constraint firstItem="xol-8o-Bn5" firstAttribute="trailing" secondItem="twb-ab-x92" secondAttribute="trailing" id="xmO-Ga-J69"/>
                         <constraint firstItem="twb-ab-x92" firstAttribute="trailing" secondItem="V41-Xp-Lt9" secondAttribute="trailing" constant="16" id="yFP-BX-tbS"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="twb-ab-x92"/>
