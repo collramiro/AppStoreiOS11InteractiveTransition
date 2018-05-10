@@ -111,6 +111,14 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as! CardCollectionViewCell
         cell.cardContentView?.viewModel = models[indexPath.row]
+        cell.onCardTouch = { [unowned self] (cell) -> () in
+            if let indexPath = self.collectionView?.indexPath(for: cell) {
+                DispatchQueue.main.async(execute: {() -> Void in
+                    self.collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+                    self.collectionView?.delegate?.collectionView!(self.collectionView, didSelectItemAt: indexPath)
+                })
+            }
+        }
     }
     
 }
@@ -157,6 +165,10 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 //        let width = collectionView.bounds.size.width - 2 * Constant.horizontalInset
 //        let height: CGFloat = width * 1.6
 //        return CGSize(width: width, height: height)
+//    }
+    
+//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+//        return true
 //    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

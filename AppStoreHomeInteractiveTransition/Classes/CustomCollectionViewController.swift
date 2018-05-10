@@ -10,6 +10,10 @@ import UIKit
 
 class CustomCollectionViewController: UICollectionView, UIGestureRecognizerDelegate {
 
+    public var touchesBeganAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
+    public var touchesEndedAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
+    public var touchesCancelledAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
+    
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 ////        if gestureRecognizer is UILongPressGestureRecognizer ||
 ////            otherGestureRecognizer is UILongPressGestureRecognizer {
@@ -18,30 +22,32 @@ class CustomCollectionViewController: UICollectionView, UIGestureRecognizerDeleg
 //        return true
 //    }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        //        self.animate(isHighlighted: true)
-    }
-    
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//    override func touchesShouldCancel(in view: UIView) -> Bool {
 //        return false
 //    }
 //
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return false
-//    }
     
-    override func touchesShouldCancel(in view: UIView) -> Bool {
-        return false
+    //
+    //    override func touchesShouldCancel(in view: UIView) -> Bool {
+    //        return false
+    //    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        guard let touchesBeganAction = touchesBeganAction else { return }
+        touchesBeganAction(touches, event)
     }
+
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        //        self.animate(isHighlighted: false)
+        guard let touchesEndedAction = touchesEndedAction else { return }
+        touchesEndedAction(touches, event)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        //        self.animate(isHighlighted: false)
+        guard let touchesCancelledAction = touchesCancelledAction else { return }
+        touchesCancelledAction(touches, event)
     }
 }

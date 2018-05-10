@@ -10,6 +10,10 @@ import UIKit
 
 @IBDesignable class CardContentView: UIView {
 
+    public var touchesBeganAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
+    public var touchesEndedAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
+    public var touchesCancelledAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
+    
     var viewModel: CardCollectionViewCellViewModel? {
         didSet {
             secondaryLabel.text = viewModel?.secondaryHeader
@@ -19,6 +23,26 @@ import UIKit
         }
     }
     
+    var disabledAnimation = false
+    
+    func animate(isHighlighted: Bool, completion: ((Bool) -> Void)?=nil) {
+        if disabledAnimation { return }
+        if isHighlighted {
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [UIViewAnimationOptions.beginFromCurrentState], animations: {
+                self.superview?.transform = CGAffineTransform.identity.scaledBy(x: kHighlightedFactor, y: kHighlightedFactor)
+            }, completion: completion)
+        } else {
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [UIViewAnimationOptions.beginFromCurrentState], animations: {
+                self.superview?.transform = .identity
+            }, completion: completion)
+        }
+    }
+    
+    func resetTransform() {
+        self.transform = .identity
+    }
+    
+    @IBOutlet weak var collectionView: CustomCollectionViewController!
     @IBOutlet weak var secondaryLabel: UILabel!
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -28,7 +52,6 @@ import UIKit
     @IBOutlet weak var imageToLeadingAnchor: NSLayoutConstraint!
     @IBOutlet weak var imageToTrailingAnchor: NSLayoutConstraint!
     @IBOutlet weak var imageToBottomAnchor: NSLayoutConstraint!
-    @IBOutlet weak var collectionView: UICollectionView!
     
     lazy var images: [String] = [
         "girl1.jpg",
@@ -70,15 +93,39 @@ import UIKit
         // else the image will get resized during animation.
 //        imageView.contentMode = .center
         
-        collectionView.register(UINib(nibName: "\(ImageCollectionViewCell.self)", bundle: nil), forCellWithReuseIdentifier: "imagePage")
-
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.delaysContentTouches = true
+     setupCollectionView()
         
         imageView.contentMode = .scaleAspectFill
         fontState(isHighlighted: false)
     }
+    
+    private func setupCollectionView() {
+        collectionView.register(UINib(nibName: "\(ImageCollectionViewCell.self)", bundle: nil), forCellWithReuseIdentifier: "imagePage")
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.delaysContentTouches = false
+        //        collectionView.canCancelContentTouches = false
+        
+        collectionView.touchesBeganAction = { [unowned self] (touches, event) -> () in
+//            self.animate(isHighlighted: true)
+            guard let touchesBeganAction = self.touchesBeganAction else { return }
+            touchesBeganAction(touches, event)
+        }
+        
+        collectionView.touchesEndedAction = { [unowned self] (touches, event) -> () in
+//            self.animate(isHighlighted: false)
+            guard let touchesEndedAction = self.touchesEndedAction else { return }
+            touchesEndedAction(touches, event)
+        }
+        
+        collectionView.touchesCancelledAction = { [unowned self] (touches, event) -> () in
+//            self.animate(isHighlighted: false)
+            guard let touchesCancelledAction = self.touchesCancelledAction else { return }
+            touchesCancelledAction(touches, event)
+        }
+    }
+    
 
     // This is for smooth animation state, it "connects" highlighted (pressedDown) font's size with the destination card's font size
     func fontState(isHighlighted: Bool) {
@@ -91,22 +138,22 @@ import UIKit
         }
     }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-//        self.animate(isHighlighted: true)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-//        self.animate(isHighlighted: false)
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-//        self.animate(isHighlighted: false)
-    }
-    
+
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesBegan(touches, with: event)
+////        self.animate(isHighlighted: true)
+//    }
+//
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesEnded(touches, with: event)
+////        self.animate(isHighlighted: false)
+//    }
+//
+//    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesCancelled(touches, with: event)
+////        self.animate(isHighlighted: false)
+//    }
+//
 }
 
 extension CardContentView: UICollectionViewDataSource {

@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardContentView" customModule="AppStoreHomeInteractiveTransition" customModuleProvider="target">
             <connections>
-                <outlet property="collectionView" destination="xol-8o-Bn5" id="RZH-d7-7UY"/>
+                <outlet property="collectionView" destination="xol-8o-Bn5" id="2fI-fF-5uc"/>
                 <outlet property="detailLabel" destination="V41-Xp-Lt9" id="dqV-Lp-Zf0"/>
                 <outlet property="imageToBottomAnchor" destination="drH-b2-3VK" id="Yp0-cm-SAe"/>
                 <outlet property="imageToLeadingAnchor" destination="fJ2-z6-cRq" id="Uuo-dB-zY6"/>
