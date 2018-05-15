@@ -13,9 +13,10 @@ struct CardCollectionViewCellViewModel {
     let secondaryHeader: String
     let descriptionHeader: String
     let image: UIImage
-
+    var imageIndex: Int
+    
     func scaledHighlightImageState() -> CardCollectionViewCellViewModel {
         let scaledImage = image.resize(toWidth: image.size.width * kHighlightedFactor)
-        return CardCollectionViewCellViewModel(primaryHeader: primaryHeader, secondaryHeader: secondaryHeader, descriptionHeader: descriptionHeader, image: scaledImage)
+        return CardCollectionViewCellViewModel(primaryHeader: primaryHeader, secondaryHeader: secondaryHeader, descriptionHeader: descriptionHeader, image: scaledImage, imageIndex: imageIndex)
     }
 }

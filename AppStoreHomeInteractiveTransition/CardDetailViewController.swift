@@ -33,14 +33,23 @@ class CardDetailViewController: AnimatableStatusBarViewController, UIScrollViewD
         scrollView.delegate = self
         cardContentView.viewModel = cardViewModel
         cardContentView.fontState(isHighlighted: true)
+        cardContentView.isDetailView = true
+        cardContentView.collectionView.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        cardContentView.collectionView.isHidden = false
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let shouldScrollEnabled: Bool
         if self.scrollView.isTracking && scrollView.contentOffset.y < 0 {
             shouldScrollEnabled = false
+            cardContentView.collectionView.isHidden = true
             self.interactivityDelegate?.shouldDragDownToDismiss()
         } else {
+//            cardContentView.collectionView.isHidden = false
             shouldScrollEnabled = true
         }
 

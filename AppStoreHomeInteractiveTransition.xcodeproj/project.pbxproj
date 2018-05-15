@@ -17,7 +17,7 @@
 		2880950E20A36A2B008682B5 /* ImageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880950D20A36A2B008682B5 /* ImageContentViewController.swift */; };
 		2880951120A38067008682B5 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880950F20A38067008682B5 /* ImageCollectionViewCell.swift */; };
 		2880951220A38067008682B5 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2880951020A38067008682B5 /* ImageCollectionViewCell.xib */; };
-		2880951520A393FA008682B5 /* CustomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880951420A393FA008682B5 /* CustomCollectionViewController.swift */; };
+		2880951520A393FA008682B5 /* ImageGalleryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880951420A393FA008682B5 /* ImageGalleryCollectionViewController.swift */; };
 		3006575F208A64F900BE8E14 /* img3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3006575E208A64F900BE8E14 /* img3.jpg */; };
 		3020D63A2073D66A009B201B /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3020D6392073D66A009B201B /* img1.png */; };
 		3020D6422073DD5E009B201B /* CardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3020D6412073DD5E009B201B /* CardContentView.swift */; };
@@ -46,14 +46,13 @@
 		2880950D20A36A2B008682B5 /* ImageContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentViewController.swift; sourceTree = "<group>"; };
 		2880950F20A38067008682B5 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2880951020A38067008682B5 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
-		2880951420A393FA008682B5 /* CustomCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewController.swift; sourceTree = "<group>"; };
+		2880951420A393FA008682B5 /* ImageGalleryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCollectionViewController.swift; sourceTree = "<group>"; };
 		3006575E208A64F900BE8E14 /* img3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img3.jpg; sourceTree = "<group>"; };
 		3020D6392073D66A009B201B /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
 		3020D6412073DD5E009B201B /* CardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentView.swift; sourceTree = "<group>"; };
 		3020D6432073DD68009B201B /* CardContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardContentView.xib; sourceTree = "<group>"; };
 		3020D6452073E373009B201B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		30343596206F612F00F2B997 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
-		30343598206F614E00F2B997 /* CardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCollectionViewCell.xib; sourceTree = "<group>"; };
 		3034359B206F620100F2B997 /* CardCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		303E8D5220754B7000C88DAE /* AnimatableStatusBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableStatusBarViewController.swift; sourceTree = "<group>"; };
 		3078369A2073FCF6007E040A /* CardToDetailTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardToDetailTransitionManager.swift; sourceTree = "<group>"; };
@@ -81,7 +80,7 @@
 		2880951320A393CB008682B5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				2880951420A393FA008682B5 /* CustomCollectionViewController.swift */,
+				2880951420A393FA008682B5 /* ImageGalleryCollectionViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -105,7 +104,6 @@
 			isa = PBXGroup;
 			children = (
 				30343596206F612F00F2B997 /* CardCollectionViewCell.swift */,
-				30343598206F614E00F2B997 /* CardCollectionViewCell.xib */,
 				3020D6412073DD5E009B201B /* CardContentView.swift */,
 				3020D6432073DD68009B201B /* CardContentView.xib */,
 				2880950F20A38067008682B5 /* ImageCollectionViewCell.swift */,
@@ -255,7 +253,7 @@
 				303E8D5320754B7000C88DAE /* AnimatableStatusBarViewController.swift in Sources */,
 				30F6EA202073F41F00213761 /* CardDetailViewController.swift in Sources */,
 				2880950C20A36A14008682B5 /* SwipeableImageViewController.swift in Sources */,
-				2880951520A393FA008682B5 /* CustomCollectionViewController.swift in Sources */,
+				2880951520A393FA008682B5 /* ImageGalleryCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,7 +393,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S4HSW82BLW;
 				INFOPLIST_FILE = AppStoreHomeInteractiveTransition/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aunwirawit.AppStoreHomeInteractiveTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -411,7 +409,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S4HSW82BLW;
 				INFOPLIST_FILE = AppStoreHomeInteractiveTransition/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aunwirawit.AppStoreHomeInteractiveTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";

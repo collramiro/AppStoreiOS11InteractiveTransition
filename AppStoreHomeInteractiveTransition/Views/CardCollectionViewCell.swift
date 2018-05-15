@@ -44,22 +44,22 @@ final class CardCollectionViewCell: UICollectionViewCell {
         self.layer.shadowRadius = 12
         
         //setup touch listeners
-        cardContentView.touchesBeganAction = { [unowned self] (touches, event) -> () in
-            self.animate(isHighlighted: true)
-//            self.touchesBegan(touches, with: event)
+        cardContentView.touchAction = { [unowned self] (type, touches, event) -> () in
+            switch type {
+            case .began:
+                self.animate(isHighlighted: true)
+                
+            case .ended:
+                self.animate(isHighlighted: false)
+                guard let onTouchAction = self.onCardTouch else { return }
+                onTouchAction(self)
+                
+            case .cancelled:
+                self.animate(isHighlighted: false)
+                
+            }
         }
-        
-        cardContentView.touchesEndedAction = { [unowned self] (touches, event) -> () in
-            self.animate(isHighlighted: false)
-            guard let onTouchAction = self.onCardTouch else { return }
-            onTouchAction(self)
-//            self.touchesEnded(touches, with: event)
-        }
-        
-        cardContentView.touchesCancelledAction = { [unowned self] (touches, event) -> () in
-            self.animate(isHighlighted: false)
-//            self.touchesCancelled(touches, with: event)
-        }
+
     }
 
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

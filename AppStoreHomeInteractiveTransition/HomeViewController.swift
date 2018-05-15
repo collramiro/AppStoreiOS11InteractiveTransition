@@ -20,13 +20,16 @@ final class HomeViewController: AnimatableStatusBarViewController {
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
     lazy var models: [CardCollectionViewCellViewModel] = [
-        CardCollectionViewCellViewModel(primaryHeader: "Primary", secondaryHeader: "Secondary", descriptionHeader: "Desc", image: #imageLiteral(resourceName: "girl1.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor))),
-        CardCollectionViewCellViewModel(primaryHeader: "You won't believe this guy", secondaryHeader: "Something we want", descriptionHeader: "They have something we want which is not something we need.", image: #imageLiteral(resourceName: "girl2.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor))),
-        CardCollectionViewCellViewModel(primaryHeader: "Primary", secondaryHeader: "Secondary", descriptionHeader: "Desc", image: #imageLiteral(resourceName: "girl3.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor))),
-        CardCollectionViewCellViewModel(primaryHeader: "You won't believe this guy", secondaryHeader: "Something we want", descriptionHeader: "They have something we want which is not something we need.", image: #imageLiteral(resourceName: "girl4.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor))),
-        CardCollectionViewCellViewModel(primaryHeader: "You won't believe this guy", secondaryHeader: "Something we want", descriptionHeader: "They have something we want which is not something we need.", image: #imageLiteral(resourceName: "girl5.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor))),
-        CardCollectionViewCellViewModel(primaryHeader: "Primary", secondaryHeader: "Secondary", descriptionHeader: "Desc", image:#imageLiteral(resourceName: "girl6.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor)))
+        CardCollectionViewCellViewModel(primaryHeader: "Primary", secondaryHeader: "Secondary", descriptionHeader: "Desc", image: #imageLiteral(resourceName: "girl1.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor)), imageIndex: 0),
+        CardCollectionViewCellViewModel(primaryHeader: "You won't believe this guy", secondaryHeader: "Something we want", descriptionHeader: "They have something we want which is not something we need.", image: #imageLiteral(resourceName: "girl2.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor)), imageIndex: 0),
+        CardCollectionViewCellViewModel(primaryHeader: "Primary", secondaryHeader: "Secondary", descriptionHeader: "Desc", image: #imageLiteral(resourceName: "girl3.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor)), imageIndex: 0),
+        CardCollectionViewCellViewModel(primaryHeader: "You won't believe this guy", secondaryHeader: "Something we want", descriptionHeader: "They have something we want which is not something we need.", image: #imageLiteral(resourceName: "girl4.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor)), imageIndex: 0),
+        CardCollectionViewCellViewModel(primaryHeader: "You won't believe this guy", secondaryHeader: "Something we want", descriptionHeader: "They have something we want which is not something we need.", image: #imageLiteral(resourceName: "girl5.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor)), imageIndex: 0),
+        CardCollectionViewCellViewModel(primaryHeader: "Primary", secondaryHeader: "Secondary", descriptionHeader: "Desc", image:#imageLiteral(resourceName: "girl6.jpg").resize(toWidth: UIScreen.main.bounds.size.width * (1/kHighlightedFactor)), imageIndex: 0)
     ]
+    
+    var scrollCoeff = 1.0
+    var scrollStartY = 0.0
 
     private var transitionManager: CardToDetailTransitionManager!
 
@@ -44,7 +47,7 @@ final class HomeViewController: AnimatableStatusBarViewController {
 //            layout.sectionInset = .init(top: 20, left: 0, bottom: 64, right: 0)
 //        }
         
-        collectionViewLayout.minimumLineSpacing = 0
+        collectionViewLayout.minimumLineSpacing = 20
         collectionView.delegate = self
         collectionView.dataSource = self
         //collectionView.register(UINib(nibName: "\(CardCollectionViewCell.self)", bundle: nil), forCellWithReuseIdentifier: "card")
@@ -126,7 +129,53 @@ extension HomeViewController: UICollectionViewDataSource {
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        scrollCoeff = 1.0
         indexOfCellBeforeDragging = indexOfMajorCell()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageHeight = (scrollView.contentSize.height) / CGFloat(models.count)
+//        let pageHeight = scrollView.bounds.size.height
+        let currentPage = indexOfCellBeforeDragging
+        
+        let currentPageTop = (pageHeight) * CGFloat(currentPage)
+        let fadeOutDistance: CGFloat = 100
+        
+        //calculate alpha for starting cell
+        var indexPath = IndexPath(row: indexOfCellBeforeDragging, section: 0)
+        var cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
+        var alpha: CGFloat = 1
+        var delta = (scrollView.contentOffset.y - currentPageTop)
+//        print("scrollView.contentOffset.y: \(scrollView.contentOffset.y) currentPageTop: \(currentPageTop)")
+        alpha =  1 - (delta < 0 ? abs(delta) : delta) / fadeOutDistance
+        print("outdelta: \(delta) alpha: \(alpha)")
+
+        if let containerView = cell?.cardContentView.dataStackView {
+            containerView.alpha = alpha
+        }
+        
+        //calculate alpha for previous/next cell
+        let indexOfMajorCell = self.indexOfMajorCell()
+        let majorCellIsTheCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
+        let nextIndex = currentPage + (delta >= 0 ? 1 : -1)
+
+        if delta >= 0 && majorCellIsTheCellBeforeDragging {
+
+        } else {
+            indexPath = IndexPath(row: nextIndex, section: 0)
+            cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
+
+            let nextPageTop = (pageHeight) * CGFloat(nextIndex)
+//            print("pageHeight: \(pageHeight) nextIndex: \(nextIndex) nextPageTop: \(nextPageTop)")
+
+            delta = (scrollView.contentOffset.y - nextPageTop)
+            alpha =  1 - (delta < 0 ? abs(delta) : delta) / fadeOutDistance
+            print("delta: \(delta) alpha: \(alpha)")
+            if let containerView = cell?.cardContentView.dataStackView {
+                containerView.alpha = alpha
+            }
+        }
+        
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -146,7 +195,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         if didUseSwipeToSkipCell {
             
             let snapToIndex = indexOfCellBeforeDragging + (hasEnoughVelocityToSlideToTheNextCell ? 1 : -1)
-            let toValue = collectionViewLayout.itemSize.height * CGFloat(snapToIndex)
+            let toValue = (collectionViewLayout.itemSize.height + collectionViewLayout.minimumLineSpacing) * CGFloat(snapToIndex)
             
             // Damping equal 1 => no oscillations => decay animation:
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: velocity.x, options: .allowUserInteraction, animations: {
@@ -184,7 +233,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let currentCellFrame = cell.layer.presentation()!.frame
         let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
 
-        vc.cardViewModel = cardModel.scaledHighlightImageState()
+        var destinationModel = cardModel.scaledHighlightImageState()
+        if let currentPage = cell.cardContentView?.pageControl.currentPage {
+            destinationModel.imageIndex = currentPage
+        }
+        vc.cardViewModel = destinationModel
 
         // Card's frame relative to UIWindow
         let frameWithoutTransform = { () -> CGRect in
@@ -199,7 +252,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             return cell.superview!.convert(r, to: nil)
         }()
 
-        let params = (fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, viewModel: cardModel, fromCell: cell)
+        let params = (fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, viewModel: destinationModel, fromCell: cell)
         self.transitionManager = CardToDetailTransitionManager(params)
         self.transitionManager.cardDetailViewController = vc
         vc.transitioningDelegate = transitionManager

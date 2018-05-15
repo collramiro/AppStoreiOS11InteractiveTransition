@@ -19,7 +19,7 @@ final class CardToDetailTransitionManager: UIPercentDrivenInteractiveTransition,
         static let transitionDuration: TimeInterval = 0.8
         //0.8 original
         static let transitionDurationForDismissing: TimeInterval = 1.2
-        static let minimumScaleUntilDismissing: CGFloat = 0.8
+        static let minimumScaleUntilDismissing: CGFloat = 0.7
         static let progressUntilDismissing: Double = 0.5
     }
 
@@ -188,6 +188,7 @@ extension CardToDetailTransitionManager: UIViewControllerAnimatedTransitioning {
 
             let animatingCardView = CardContentView(frame: .zero)
             self.animatingCardView = animatingCardView
+            animatingCardView.collectionView.isHidden = true
             animatingCardView.translatesAutoresizingMaskIntoConstraints = false
             animatingCardView.fontState(isHighlighted: true)
             animatingCardView.layer.cornerRadius = 16
@@ -434,6 +435,7 @@ extension CardToDetailTransitionManager: UIGestureRecognizerDelegate {
         switch gesture.state {
         case .began:
             self.isInteractive = true
+            self.cardDetailViewController?.cardContentView.collectionView.isHidden = true
             self.cardDetailViewController?.dismiss(animated: true, completion: nil)
 
         case .changed:
@@ -450,8 +452,8 @@ extension CardToDetailTransitionManager: UIGestureRecognizerDelegate {
                 cardDetailDidEnterDismissAnimationState()
                 self.finish()
             } else {
-//                self.cardDetailViewController?.view.setNeedsLayout()
-//                self.cardDetailViewController?.view.layoutIfNeeded()
+                self.cardDetailViewController?.cardContentView.collectionView.reloadData()
+                self.cardDetailViewController?.cardContentView.collectionView.isHidden = false
                 self.cancel()
             }
         }
@@ -497,6 +499,7 @@ extension CardToDetailTransitionManager: UIGestureRecognizerDelegate {
                 self.finish()
             } else {
                 self.cancel()
+                self.cardDetailViewController?.cardContentView.collectionView.reloadData()
             }
         }
     }

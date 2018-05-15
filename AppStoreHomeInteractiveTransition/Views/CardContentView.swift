@@ -10,48 +10,42 @@ import UIKit
 
 @IBDesignable class CardContentView: UIView {
 
-    public var touchesBeganAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
-    public var touchesEndedAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
-    public var touchesCancelledAction: ((_ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
-    
+    public var touchAction: ((_ touchType: ImageGalleryCollectionViewController.TouchType, _ touches: Set<UITouch>, _ event: UIEvent?) -> ())?
+
     var viewModel: CardCollectionViewCellViewModel? {
         didSet {
             secondaryLabel.text = viewModel?.secondaryHeader
             primaryLabel.text = viewModel?.primaryHeader
             detailLabel.text = viewModel?.descriptionHeader
             imageView.image = viewModel?.image
+            self.pageControl.numberOfPages = images.count
+            if let imageIndex = viewModel?.imageIndex {
+                DispatchQueue.main.async(execute: {() -> Void in
+                    self.imageView.image = UIImage.init(named: self.images[imageIndex])
+                    self.pageControl.currentPage = imageIndex
+                    self.collectionView.scrollToItem(at: IndexPath.init(row: imageIndex, section: 0), at: .centeredHorizontally, animated: false)
+                })
+            }
         }
     }
-    
-    var disabledAnimation = false
-    
-    func animate(isHighlighted: Bool, completion: ((Bool) -> Void)?=nil) {
-        if disabledAnimation { return }
-        if isHighlighted {
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [UIViewAnimationOptions.beginFromCurrentState], animations: {
-                self.superview?.transform = CGAffineTransform.identity.scaledBy(x: kHighlightedFactor, y: kHighlightedFactor)
-            }, completion: completion)
-        } else {
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0, options: [UIViewAnimationOptions.beginFromCurrentState], animations: {
-                self.superview?.transform = .identity
-            }, completion: completion)
-        }
-    }
-    
-    func resetTransform() {
-        self.transform = .identity
-    }
-    
-    @IBOutlet weak var collectionView: CustomCollectionViewController!
+
+    @IBOutlet weak var collectionView: ImageGalleryCollectionViewController!
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var secondaryLabel: UILabel!
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var dataStackView: UIStackView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
     
     @IBOutlet weak var imageToTopAnchor: NSLayoutConstraint!
     @IBOutlet weak var imageToLeadingAnchor: NSLayoutConstraint!
     @IBOutlet weak var imageToTrailingAnchor: NSLayoutConstraint!
     @IBOutlet weak var imageToBottomAnchor: NSLayoutConstraint!
+    
+    var isDetailView = false
     
     lazy var images: [String] = [
         "girl1.jpg",
@@ -88,15 +82,20 @@ import UIKit
         commonSetup()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
     private func commonSetup() {
         // *Make the background image stays still at the center while we animationg,
         // else the image will get resized during animation.
 //        imageView.contentMode = .center
         
-     setupCollectionView()
+        setupCollectionView()
         
         imageView.contentMode = .scaleAspectFill
         fontState(isHighlighted: false)
+        
     }
     
     private func setupCollectionView() {
@@ -104,26 +103,14 @@ import UIKit
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.delaysContentTouches = false
+        collectionView.delaysContentTouches = true
         //        collectionView.canCancelContentTouches = false
         
-        collectionView.touchesBeganAction = { [unowned self] (touches, event) -> () in
-//            self.animate(isHighlighted: true)
-            guard let touchesBeganAction = self.touchesBeganAction else { return }
-            touchesBeganAction(touches, event)
+        collectionView.touchAction = { [unowned self] (type, touches, event) -> () in
+            guard let touchesAction = self.touchAction else { return }
+            touchesAction(type, touches, event)
         }
-        
-        collectionView.touchesEndedAction = { [unowned self] (touches, event) -> () in
-//            self.animate(isHighlighted: false)
-            guard let touchesEndedAction = self.touchesEndedAction else { return }
-            touchesEndedAction(touches, event)
-        }
-        
-        collectionView.touchesCancelledAction = { [unowned self] (touches, event) -> () in
-//            self.animate(isHighlighted: false)
-            guard let touchesCancelledAction = self.touchesCancelledAction else { return }
-            touchesCancelledAction(touches, event)
-        }
+
     }
     
 
@@ -137,23 +124,6 @@ import UIKit
             secondaryLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         }
     }
-    
-
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesBegan(touches, with: event)
-////        self.animate(isHighlighted: true)
-//    }
-//
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesEnded(touches, with: event)
-////        self.animate(isHighlighted: false)
-//    }
-//
-//    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesCancelled(touches, with: event)
-////        self.animate(isHighlighted: false)
-//    }
-//
 }
 
 extension CardContentView: UICollectionViewDataSource {
@@ -175,7 +145,14 @@ extension CardContentView: UICollectionViewDataSource {
         let cell = cell as! ImageCollectionViewCell
         cell.imageView?.image = UIImage.init(named: images[indexPath.row])
     }
-    
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if let collectionView = scrollView as? ImageGalleryCollectionViewController,
+            let row = collectionView.indexPathForItem(at: targetContentOffset.pointee)?.row {
+            imageView.image = UIImage.init(named: images[row])
+            self.pageControl.currentPage = row
+        }
+    }
 }
 
 extension CardContentView: UICollectionViewDelegateFlowLayout {
